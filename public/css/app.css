@@ -481,12 +481,13 @@ video {
 .order-1{
   order: 1;
 }
-.m-0{
-  margin: 0px;
-}
 .mx-auto{
   margin-left: auto;
   margin-right: auto;
+}
+.my-5{
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
 }
 .mt-20{
   margin-top: 5rem;
@@ -597,9 +598,6 @@ video {
 .p-4{
   padding: 1rem;
 }
-.p-0{
-  padding: 0px;
-}
 .py-3{
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
@@ -636,9 +634,6 @@ video {
 }
 .text-right{
   text-align: right;
-}
-.align-baseline{
-  vertical-align: baseline;
 }
 .text-sm{
   font-size: 0.875rem;
