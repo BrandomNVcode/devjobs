@@ -689,6 +689,9 @@ video {
 .uppercase{
   text-transform: uppercase;
 }
+.italic{
+  font-style: italic;
+}
 .leading-7{
   line-height: 1.75rem;
 }
@@ -726,6 +729,10 @@ video {
   --tw-text-opacity: 1;
   color: rgb(209 213 219 / var(--tw-text-opacity));
 }
+.underline{
+  -webkit-text-decoration-line: underline;
+          text-decoration-line: underline;
+}
 .no-underline{
   -webkit-text-decoration-line: none;
           text-decoration-line: none;
@@ -734,6 +741,40 @@ video {
   --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.medium-editor-toolbar-active {
+  visibility: visible;
+  background: rgb(56, 178, 172);
+  color: #fff;
+}
+
+.medium-editor-element, .description {
+  min-height: 300px;
+}
+.medium-editor-element ol, .medium-editor-element ul, .medium-editor-element h1, .medium-editor-element h2, .medium-editor-element h3, .medium-editor-element p, .medium-editor-element a, .description ol, .description ul, .description h1, .description h2, .description h3, .description p, .description a {
+  color: #4a5568;
+}
+.medium-editor-element ol, .medium-editor-element ul, .description ol, .description ul {
+  padding-left: 50px;
+}
+.medium-editor-element ol, .description ol {
+  list-style: decimal;
+}
+.medium-editor-element ul, .description ul {
+  list-style: disc;
+}
+.medium-editor-element h2, .medium-editor-element h3, .description h2, .description h3 {
+  margin: 1rem 0;
+}
+.medium-editor-element h2, .description h2 {
+  font-size: 1.8rem;
+}
+.medium-editor-element h3, .description h3 {
+  font-size: 2.2rem;
+}
+.medium-editor-element p, .description p {
+  font-size: 1rem;
+  line-height: 2;
 }
 .hover\:bg-teal-700:hover{
   --tw-bg-opacity: 1;

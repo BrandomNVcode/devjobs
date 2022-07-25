@@ -16,7 +16,9 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
+    
     <!-- Styles -->
+    @yield('styles')
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body class="bg-gray-200 min-h-screen leading-none">
@@ -67,5 +69,7 @@
             @yield('content')
         </main>
     </div>
+
+    @yield('scripts')
 </body>
 </html>

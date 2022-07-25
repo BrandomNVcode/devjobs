@@ -44,6 +44,7 @@ class CreateVacantesTable extends Migration
         // vacantes requiere de categorias, experiencias, salarios y ubicacions para crearse por el foreingn id que los relaciona
         Schema::create('vacantes', function (Blueprint $table) {
             $table->id();
+            $table->text('descripcion');
             $table->foreignId('categoria_id')->constrained()->onDelete('cascade');
             $table->foreignId('experiencia_id')->constrained()->onDelete('cascade');
             $table->foreignId('ubicacion_id')->constrained()->onDelete('cascade');
