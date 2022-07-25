@@ -21,3 +21,8 @@ Route::get('/', function () {
 Auth::routes(['verify' => true]); // las rutas de autenticacion deben de estar verificadas -> ver homeontroller
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::get('/vacantes', 'VacanteController@index')->name('vacantes.index');
+Route::get('/vacantes/create', 'VacanteController@create')->name('vacantes.create');
+
