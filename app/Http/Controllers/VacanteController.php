@@ -8,6 +8,7 @@ use App\Salario;
 use App\Ubicacion;
 use App\Vacante;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class VacanteController extends Controller
 {
@@ -104,4 +105,37 @@ class VacanteController extends Controller
     {
         //
     }
+
+
+
+    public function imagen(Request $request)
+    {
+
+        $imagen = $request->file('file');
+        $nombreImg = time() . "." . $imagen->extension();
+        $imagen->move(public_path('storage/vacantes'), $nombreImg);
+
+        //return request()->all();
+        return response()->json(["correcto" => $nombreImg]);
+    }
+
+
+    public function borrarimagen(Request $request)
+    {   
+        if($request->ajax()) { // es una peticion de ajax?
+            $imagen = $request->get("imagen");
+            //$rutaServer = 'vacantes/' . $imagen;
+            if(File::exists(public_path("storage/vacantes/".$imagen))) {
+                File::delete(public_path("storage/vacantes/".$imagen));
+
+                return response("Imagen Eliminada", 200);
+            }
+
+            return response("Imagen no existe", 200);
+        }
+
+        return response(("No se elimino, no es una peticion ajax"), 200);
+    }
+
+
 }

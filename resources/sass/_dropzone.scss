@@ -1,0 +1,11 @@
+.dropzone {
+    border: 2px dashed #c1c1c1;
+
+    .dz-error {
+        display: none;
+    }
+
+    .dz-message .dz-button {
+        color: #666;
+    }
+}
