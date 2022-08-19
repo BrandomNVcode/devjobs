@@ -21,14 +21,22 @@
 
     <h1 class="text-2xl text-center mt-10">Nueva vacante</h1>
 
-    <form class="max-w-lg mx-auto my-10" enctype="multipart/form-data">
+    <form 
+        class="max-w-lg mx-auto my-10" enctype="multipart/form-data"
+        action="{{ route("vacantes.store") }}"
+        method="POST">
+        @csrf
+        
         <div class="mb-5">
             <label for="titulo" class="block text-gray-700 text-sm mb-2">Titulo vacante:</label>
             <input id="titulo"
                     type="text"
                     class="p-3 bg-gray-100 rounded form-imput w-full focus:outline focus:shadow-outline @error('titulo') is-invalid @enderror"
                     name="titulo"
+                    placeholder="Ejm: Desarrollador Web.."
+                    value="{{ old('titulo') }}"
             >
+            @include('layouts.error', ["nombre" => "titulo"])
         </div>
 
         <div class="mb-5">
@@ -41,9 +49,12 @@
                 <option disabled selected>-Seleccione categoria-</option>
 
                 @foreach ($categorias as $item)
-                    <option value="{{$item->id}}">{{$item->nombre}}</option>
+                    <option value="{{$item->id}}"
+                            {{ (old('categoria') == $item->id)? 'selected' : ''}}
+                        >{{$item->nombre}}</option>
                 @endforeach
             </select>
+            @include('layouts.error', ["nombre" => "categoria"])
         </div>
 
         <div class="mb-5">
@@ -56,9 +67,12 @@
                 <option disabled selected>-Seleccione experiencia-</option>
 
                 @foreach ($experiencias as $item)
-                    <option value="{{$item->id}}">{{$item->nombre}}</option>
+                    <option value="{{$item->id}}"
+                            {{ (old('experiencia') == $item->id)? 'selected' : ''}}
+                        >{{$item->nombre}}</option>
                 @endforeach
             </select>
+            @include('layouts.error', ["nombre" => "experiencia"])
         </div>
 
         <div class="mb-5">
@@ -71,9 +85,12 @@
                 <option disabled selected>-Seleccione ubicación-</option>
 
                 @foreach ($ubicaciones as $item)
-                    <option value="{{$item->id}}">{{$item->nombre}}</option>
+                    <option value="{{$item->id}}"
+                            {{ (old('ubicacion') == $item->id)? 'selected' : ''}}
+                        >{{$item->nombre}}</option>
                 @endforeach
             </select>
+            @include('layouts.error', ["nombre" => "ubicacion"])
         </div>
 
         <div class="mb-5">
@@ -86,9 +103,12 @@
                 <option disabled selected>-Seleccione salario-</option>
 
                 @foreach ($salarios as $item)
-                    <option value="{{$item->id}}">{{$item->nombre}}</option>
+                    <option value="{{$item->id}}"
+                            {{ (old('salario') == $item->id)? 'selected' : ''}}
+                        >{{$item->nombre}}</option>
                 @endforeach
             </select>
+            @include('layouts.error', ["nombre" => "salario"])
         </div>
 
         <div class="mb-5">

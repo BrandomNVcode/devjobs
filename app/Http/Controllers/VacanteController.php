@@ -50,15 +50,21 @@ class VacanteController extends Controller
             ->with('salarios', $salarios);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
+
+
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+            "titulo" => "required|min:2",
+            "categoria" => "required",
+            "experiencia" => "required",
+            "ubicacion" => "required",
+            "salario" => "required"
+        ]);
+
+        return "desde store";
     }
 
     /**
