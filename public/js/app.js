@@ -1938,13 +1938,24 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToAr
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["skills"],
+  props: ["skills", "oldskills"],
   data: function data() {
     return {
       habilidades: new Set()
     };
   },
-  mounted: function mounted() {//console.log(this.skills)
+  created: function created() {
+    var _this = this;
+
+    if (this.oldskills) {
+      var skillsArr = this.oldskills.split(",");
+      skillsArr.forEach(function (skill) {
+        return _this.habilidades.add(skill);
+      });
+    }
+  },
+  mounted: function mounted() {
+    document.querySelector("#skills").value = this.oldskills;
   },
   methods: {
     activar: function activar(e) {
@@ -1962,6 +1973,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var stringHab = _toConsumableArray(this.habilidades);
 
       document.querySelector("#skills").value = stringHab;
+    },
+    verificarClaseActiva: function verificarClaseActiva(skill) {
+      return this.habilidades.has(skill) ? "bg-teal-400" : "";
     }
   }
 });
@@ -2030,6 +2044,7 @@ var render = function render() {
     return _c("li", {
       key: i,
       staticClass: "border border-gray-500 px-10 py-3 rounded mb-4",
+      "class": _vm.verificarClaseActiva(skill),
       on: {
         click: function click($event) {
           return _vm.activar($event);

@@ -114,7 +114,8 @@
         <div class="mb-5">
             <label for="descripcion" class="block text-gray-700 text-sm mb-2">Descripción:</label>
             <div class="editable p-3 bg-gray-100 rounded form-imput w-full text-gray-700 focus:outline-none focus:bg-white"></div>
-            <input type="hidden" name="descripcion" id="descripcion">
+            <input type="hidden" name="descripcion" id="descripcion" value={{ old('descripcion') }}>
+            @include('layouts.error', ["nombre" => "descripcion"])
         </div>
 
         <div class="mb-5">
@@ -122,13 +123,17 @@
             @php
                 $skills = ['HTML5', 'CSS3', "JavaScript", "PHP", "JAVA", "C++", "Diseño Web"];
             @endphp
-            <lista-skills :skills="{{json_encode($skills)}}"></lista-skills>
+            <lista-skills :skills="{{json_encode($skills)}}"
+                          :oldskills="{{ json_encode(old("skills")) }}"
+            ></lista-skills>
+            @include('layouts.error', ["nombre" => "skills"])
         </div>
 
         <div class="mb-5">
             <label for="dropzone" class="block text-gray-700 text-sm mb-2">Imagen Relacional:</label>
             <div id="dropzone" class="dropzone rounded bg-gray-100"></div>
-            <input type="hidden" name="imagen" id="imagen">
+            <input type="hidden" name="imagen" id="imagen" value={{old('imagen')}} >
+            @include('layouts.error', ["nombre" => "imagen"])
         </div>
 
         <button type="submit"
@@ -153,6 +158,7 @@
 
 
 <script>
+
     document.addEventListener('DOMContentLoaded', () => {
 
 
@@ -173,14 +179,18 @@
         });
 
         // subscribiendo los cambios (obteniendo los cambios en tiempo real)
+        // Agrega al input hidden lo que el usuario escribe en medium editor
         editor.subscribe('editableInput', function(eventObj, editable) {
             const contenido = editor.getContent();
             document.querySelector('#descripcion').value = contenido;
         });
 
+        // Llena el editor con el contenido del input hidden (para el error)
+        editor.setContent( document.querySelector("#descripcion").value );
 
-        
     });
+
+
     
     // Dropzone
     Dropzone.options.dropzone = {
@@ -192,6 +202,19 @@
         maxFiles: 1,
         headers: {
             'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content
+        },
+        init: function() {
+            if(document.querySelector("#imagen").value.trim() != "") {
+                let imgPublicada = {};
+                imgPublicada.size = 1234; // no importa - valor random
+                imgPublicada.name = document.querySelector("#imagen").value;
+
+                this.options.addedfile.call(this, imgPublicada);
+                this.options.thumbnail.call(this, imgPublicada, `/storage/vacantes/${imgPublicada.name}`);
+
+                imgPublicada.previewElement.classList.add("dz-sucess");
+                imgPublicada.previewElement.classList.add("dz-complete");
+            }
         },
         success: function(file, response) { // respuesta de la ruta img
             //console.log(response.correcto);
@@ -213,7 +236,7 @@
             file.previewElement.parentNode.removeChild(file.previewElement);
 
             params = {
-                imagen: file.nombreServidor
+                imagen: file.nombreServidor ?? document.querySelector("#imagen").value
             };
 
             axios.post("/vacantes/borrarimagen", params)

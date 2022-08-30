@@ -61,52 +61,42 @@ class VacanteController extends Controller
             "categoria" => "required",
             "experiencia" => "required",
             "ubicacion" => "required",
-            "salario" => "required"
+            "salario" => "required",
+            "descripcion" => "required|min:50",
+            "imagen" => "required",
+            "skills" => "required"
         ]);
 
         return "desde store";
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Vacante  $vacante
-     * @return \Illuminate\Http\Response
-     */
+
+    
+
     public function show(Vacante $vacante)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Vacante  $vacante
-     * @return \Illuminate\Http\Response
-     */
+
+    
+
     public function edit(Vacante $vacante)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Vacante  $vacante
-     * @return \Illuminate\Http\Response
-     */
+
+    
+
     public function update(Request $request, Vacante $vacante)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Vacante  $vacante
-     * @return \Illuminate\Http\Response
-     */
+
+    
+
     public function destroy(Vacante $vacante)
     {
         //

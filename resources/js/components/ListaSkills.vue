@@ -3,23 +3,30 @@
         <ul class="flex flex-wrap justify-center">
             <li v-for="(skill, i) in this.skills" v-bind:key="i"
                 @click="activar($event)"
-                class="border border-gray-500 px-10 py-3 rounded mb-4">{{skill}}</li>
+                class="border border-gray-500 px-10 py-3 rounded mb-4"
+                :class="verificarClaseActiva(skill)">{{skill}}</li>
         </ul>
 
-        <input type="hidden" name="skills" id="skills">
+        <input type="hidden" name="skills" id="skills" >
     </div>
 </template>
 
 <script>
     export default {
-        props: ["skills"],
+        props: ["skills", "oldskills"],
         data: function() {
             return {
                 habilidades: new Set()
             }   
         },
+        created() {
+            if(this.oldskills) {
+                const skillsArr = this.oldskills.split(",");
+                skillsArr.forEach(skill => this.habilidades.add(skill));
+            }
+        },
         mounted() {
-            //console.log(this.skills)
+            document.querySelector("#skills").value = this.oldskills
         },
         methods: {
             activar(e) {
@@ -35,6 +42,9 @@
                 }
                 const stringHab = [... this.habilidades];
                 document.querySelector("#skills").value = stringHab;
+            },
+            verificarClaseActiva(skill) {
+                return this.habilidades.has(skill) ? "bg-teal-400" : "";
             }
         }
     }
